@@ -6,9 +6,9 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = 'pollapp-secret-change-in-production'
 DATABASE = '/tmp/polls.db'   # IMPORTANT for Vercel
-
-init_db()
-
+@app.before_request
+def initialize_database():
+    init_db()
 
 def get_db():
     conn = sqlite3.connect(DATABASE)
