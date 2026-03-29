@@ -5,7 +5,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'pollapp-secret-change-in-production'
-DATABASE = 'polls.db'
+DATABASE = '/tmp/polls.db'   # IMPORTANT for Vercel
+
+init_db()
 
 
 def get_db():
