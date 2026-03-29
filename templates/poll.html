@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}{{ poll['question'] }} — Pulse{% endblock %}
+
+{% block content %}
+<div class="page poll-page">
+
+  <div class="poll-header">
+    <a href="{{ url_for('index') }}" class="back-link">← All Polls</a>
+    <div class="poll-meta-row">
+      <span class="poll-id-tag">#{{ poll['id'] }}</span>
+      <span class="poll-vote-count">{{ total_votes }} vote{% if total_votes != 1 %}s{% endif %}</span>
+    </div>
+    <h1 class="poll-question">{{ poll['question'] }}</h1>
+  </div>
+
+  {% if already_voted %}
+    <div class="voted-notice">
+      ✓ You've already voted &mdash;
+      <a href="{{ url_for('results', poll_id=poll['id']) }}">see full results</a>
+    </div>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('poll', poll_id=poll['id']) }}" class="vote-form" id="voteForm">
+    <div class="options-vote-list">
+      {% for opt in options %}
+        <label class="vote-option {% if voted_option_id == opt['id'] %}my-pick{% endif %} {% if already_voted %}no-hover{% endif %}"
+               for="opt{{ opt['id'] }}">
+          <input type="radio" id="opt{{ opt['id'] }}" name="option_id" value="{{ opt['id'] }}"
+                 {% if voted_option_id == opt['id'] %}checked{% endif %}
+                 {% if already_voted %}disabled{% endif %}>
+          <span class="vote-label-text">{{ opt['text'] }}</span>
+          {% if already_voted %}
+            {% set pct = ((opt['votes'] / total_votes * 100) | round(1)) if total_votes > 0 else 0 %}
+            <span class="vote-pct">{{ pct }}%</span>
+            <div class="vote-bar-bg">
+              <div class="vote-bar-fill" style="width: {{ pct }}%"></div>
+            </div>
+          {% endif %}
+        </label>
+      {% endfor %}
+    </div>
+
+    {% if not already_voted %}
+      <button type="submit" class="submit-btn" id="voteBtn" disabled>Select an option to vote</button>
+    {% else %}
+      <a href="{{ url_for('results', poll_id=poll['id']) }}" class="submit-btn results-link">View Full Results →</a>
+    {% endif %}
+  </form>
+
+  <div class="share-section">
+    <span class="share-label">Share this poll</span>
+    <div class="share-url-row">
+      <input type="text" class="share-url" id="shareUrl"
+             value="{{ request.host_url }}poll/{{ poll['id'] }}" readonly>
+      <button class="copy-btn" id="copyBtn">Copy</button>
+    </div>
+  </div>
+
+  <form method="POST" action="{{ url_for('delete_poll', poll_id=poll['id']) }}"
+        class="delete-form" onsubmit="return confirm('Delete this poll permanently?')">
+    <button type="submit" class="delete-btn">Delete Poll</button>
+  </form>
+
+</div>
+{% endblock %}

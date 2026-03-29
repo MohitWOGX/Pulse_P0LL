@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Pulse — Live Polls{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Syne+Mono&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <nav class="navbar">
+    <a href="{{ url_for('index') }}" class="nav-brand">
+      <span class="pulse-dot"></span>PULSE
+    </a>
+    <div class="nav-right">
+      <a href="{{ url_for('index') }}" class="nav-link">All Polls</a>
+      <a href="{{ url_for('create') }}" class="nav-cta">New Poll ↗</a>
+    </div>
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-bar">
+        {% for cat, msg in messages %}
+          <div class="flash flash-{{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer class="footer">
+    <span>PULSE — Built with Flask &amp; SQLite</span>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

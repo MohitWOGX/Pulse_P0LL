@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}New Poll — Pulse{% endblock %}
+
+{% block content %}
+<div class="page form-page">
+
+  <div class="form-header">
+    <a href="{{ url_for('index') }}" class="back-link">← Back</a>
+    <h1 class="form-title">New Poll</h1>
+    <p class="form-sub">Ask a question, add your options, and share.</p>
+  </div>
+
+  <form method="POST" action="{{ url_for('create') }}" class="poll-form" id="pollForm">
+
+    <div class="field">
+      <label for="question">Your Question <span class="req">*</span></label>
+      <input type="text" id="question" name="question"
+             placeholder="e.g. What's the best programming language?" required maxlength="200" autofocus>
+    </div>
+
+    <div class="field">
+      <label>Options <span class="req">*</span> <span class="field-hint">(2–8)</span></label>
+      <div id="optionsContainer" class="options-container">
+        <div class="option-row">
+          <span class="option-num">01</span>
+          <input type="text" name="option" placeholder="Option 1" required maxlength="120">
+          <button type="button" class="remove-opt" title="Remove" disabled>✕</button>
+        </div>
+        <div class="option-row">
+          <span class="option-num">02</span>
+          <input type="text" name="option" placeholder="Option 2" required maxlength="120">
+          <button type="button" class="remove-opt" title="Remove" disabled>✕</button>
+        </div>
+      </div>
+      <button type="button" id="addOption" class="add-option-btn">+ Add Option</button>
+    </div>
+
+    <button type="submit" class="submit-btn">Launch Poll →</button>
+  </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Pulse — All Polls{% endblock %}
+
+{% block content %}
+<div class="page home-page">
+
+  <header class="home-hero">
+    <div class="hero-eyebrow">Live &amp; Interactive</div>
+    <h1 class="hero-title">Ask<br><em>Anything.</em></h1>
+    <p class="hero-body">Create a poll in seconds. Share the link. Watch votes roll in.</p>
+    <a href="{{ url_for('create') }}" class="hero-cta">Create a Poll →</a>
+  </header>
+
+  <section class="polls-section">
+    {% if polls %}
+      <div class="section-label">{{ polls|length }} POLL{% if polls|length != 1 %}S{% endif %}</div>
+      <div class="poll-list">
+        {% for p in polls %}
+          <a href="{{ url_for('poll', poll_id=p['id']) }}" class="poll-row">
+            <div class="poll-row-left">
+              <span class="poll-row-id">#{{ p['id'] }}</span>
+              <span class="poll-row-q">{{ p['question'] }}</span>
+            </div>
+            <div class="poll-row-right">
+              <span class="poll-row-votes">{{ p['total_votes'] }} vote{% if p['total_votes'] != 1 %}s{% endif %}</span>
+              <span class="poll-row-opts">{{ p['option_count'] }} options</span>
+              <span class="poll-row-arrow">→</span>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <div class="empty-glyph">?</div>
+        <p>No polls yet. Be the first.</p>
+        <a href="{{ url_for('create') }}" class="btn-outline">Create the first poll →</a>
+      </div>
+    {% endif %}
+  </section>
+
+</div>
+{% endblock %}
