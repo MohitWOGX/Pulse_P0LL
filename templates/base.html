@@ -13,16 +13,26 @@
   <div class="bg-grid"></div>
 
   <nav class="navbar">
-    <a href="{{ url_for('index') }}" class="nav-brand">
-      <span class="pulse-dot"></span>PULSE
-    </a>
-      <a href="https://github.com/MohitWOGX/Pulse_P0LL" target="_blank" class="nav-dev">
-    👨‍💻 MohitW
+  
+  <!-- LEFT -->
+  <a href="{{ url_for('index') }}" class="nav-brand">
+    <span class="pulse-dot"></span>PULSE
   </a>
-      <a href="{{ url_for('index') }}" class="nav-link">All Polls</a>
-      <a href="{{ url_for('create') }}" class="nav-cta">New Poll ↗</a>
-    </div>
-  </nav>
+
+  <!-- RIGHT -->
+  <div class="nav-right">
+    
+    <a href="https://github.com/MohitWOGX/Pulse_P0LL" target="_blank" class="nav-dev">
+      👨‍💻 MohitW
+    </a>
+
+    <a href="{{ url_for('index') }}" class="nav-link">All Polls</a>
+
+    <a href="{{ url_for('create') }}" class="nav-cta">New Poll ↗</a>
+
+  </div>
+
+</nav>
 
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
