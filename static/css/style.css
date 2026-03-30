@@ -579,15 +579,28 @@ main { flex: 1; position: relative; z-index: 1; }
   .results-winner { flex-wrap: wrap; }
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+}
+
+/* RIGHT SIDE FIX */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* 🔥 THIS controls spacing cleanly */
+}
+
+/* DEV LINK */
 .nav-dev {
   text-decoration: none;
-  color: #00ff9f; /* same neon vibe as PULSE */
+  color: #00ff9f;
   font-weight: 500;
-  margin-right: 20px;
   transition: 0.2s ease;
 }
 
 .nav-dev:hover {
   color: white;
-  transform: translateY(-1px);
 }
