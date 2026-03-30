@@ -578,3 +578,16 @@ main { flex: 1; position: relative; z-index: 1; }
   .poll-row-opts { display: none; }
   .results-winner { flex-wrap: wrap; }
 }
+
+.nav-dev {
+  text-decoration: none;
+  color: #00ff9f; /* same neon vibe as PULSE */
+  font-weight: 500;
+  margin-right: 20px;
+  transition: 0.2s ease;
+}
+
+.nav-dev:hover {
+  color: white;
+  transform: translateY(-1px);
+}
